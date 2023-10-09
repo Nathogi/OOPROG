@@ -1,3 +1,13 @@
+//Java program without using switch case to demonstrate the: 
+[1] insertion of an element at the beginning of the list
+[2] insertion at the end of the list 
+[3] insertion at a specified position of the list
+[4] deletion from the beginning of the list 
+[5] deletion from the end of the list 
+[6] deletion from the specified position of the list 
+[7] display the elements of the list 
+[0] Exit
+
 import java.util.*;
 
 public class Node {
