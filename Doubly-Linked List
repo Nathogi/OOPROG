@@ -1,0 +1,167 @@
+/* Operations on a doubly linked list in java
+Initialize the list 
+Determine whether the list is empty
+Find the length of the list
+Output the list
+Search the list for a given item
+Retrieve the first element of the list
+Retrieve the last element of the list
+Insert an item in the list
+Delete an item from the list */
+
+class Node {
+    int data;
+    Node prev;
+    Node next;
+
+    public Node(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class DoublyLinkedList {
+    private Node head;
+    private Node tail;
+    private int size;
+
+    public DoublyLinkedList() {
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
+    }
+
+    // Initialize the list
+    public void initializeList() {
+        head = null;
+        tail = null;
+        size = 0;
+    }
+
+    // Determine whether the list is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Find the length of the list
+    public int length() {
+        return size;
+    }
+
+    // Output the list
+    public void displayList() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " <-> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
+
+    // Search the list for a given item
+    public boolean search(int item) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == item) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
+
+    // Retrieve the first element of the list
+    public int getFirst() {
+        if (isEmpty()) {
+            throw new IllegalStateException("List is empty");
+        }
+        return head.data;
+    }
+
+    // Retrieve the last element of the list
+    public int getLast() {
+        if (isEmpty()) {
+            throw new IllegalStateException("List is empty");
+        }
+        return tail.data;
+    }
+
+    // Insert an item in the list at the end
+    public void insert(int item) {
+        Node newNode = new Node(item);
+        if (isEmpty()) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    // Delete an item from the list
+    public void delete(int item) {
+        Node current = head;
+        while (current != null) {
+            if (current.data == item) {
+                if (current == head) {
+                    head = current.next;
+                    if (head != null) {
+                        head.prev = null;
+                    }
+                } else if (current == tail) {
+                    tail = current.prev;
+                    tail.next = null;
+                } else {
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                }
+                size--;
+                return; // Item found and deleted
+            }
+            current = current.next;
+        }
+        // Item not found
+        System.out.println("Item not found in the list: " + item);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        DoublyLinkedList list = new DoublyLinkedList();
+
+        // Initialize the list
+        list.initializeList();
+
+        // Check if the list is empty
+        System.out.println("Is the list empty? " + list.isEmpty());
+
+        // Insert elements into the list
+        list.insert(1);
+        list.insert(2);
+        list.insert(3);
+
+        // Output the list
+        System.out.print("List: ");
+        list.displayList();
+
+        // Find the length of the list
+        System.out.println("Length of the list: " + list.length());
+
+        // Search for an item in the list
+        System.out.println("Search for 2: " + list.search(2));
+
+        // Retrieve the first element of the list
+        System.out.println("First element: " + list.getFirst());
+
+        // Retrieve the last element of the list
+        System.out.println("Last element: " + list.getLast());
+
+        // Delete an item from the list
+        list.delete(2);
+        System.out.print("List after deleting 2: ");
+        list.displayList();
+    }
+}
