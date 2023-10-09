@@ -126,3 +126,183 @@ class LinkedList {
         System.out.println();
     }
 }
+
+public class LinkedList {
+    Node head;
+
+    LinkedList() {
+        head = null;
+    }
+
+    // Insertion at the beginning of the list
+    void insertAtBeginning(int data) {
+        Node newNodes = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // Insertion at the end of the list
+    void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNodes;
+            return;
+        }
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+    }
+
+    // Insertion at a specified position of the list
+    void insertAtPosition(int data, int position) {
+        if (position < 0) {
+            System.out.println("Invalid position");
+            return;
+        }
+        if (position == 0) {
+            insertAtBeginning(data);
+            return;
+        }
+        Node newNode = new Node(data);
+        Node current = head;
+        int currentPosition = 0;
+        while (current != null && currentPosition < position - 1) {
+            current = current.next;
+            currentPosition++;
+        }
+        if (current == null) {
+            System.out.println("Invalid position");
+            return;
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+    }
+
+    // Deletion from the beginning of the list
+    void deleteFromBeginning() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        head = head.next;
+    }
+
+    // Deletion from the end of the list
+    void deleteFromEnd() {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        if (head.next == null) {
+            head = null;
+            return;
+        }
+        Node current = head;
+        while (current.next.next != null) {
+            current = current.next;
+        }
+        current.next = null;
+    }
+
+    // Deletion from a specified position of the list
+    void deleteFromPosition(int position) {
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        if (position < 0) {
+            System.out.println("Invalid position");
+            return;
+        }
+        if (position == 0) {
+            head = head.next;
+            return;
+        }
+        Node current = head;
+        int currentPosition = 0;
+        while (current != null && currentPosition < position - 1) {
+            current = current.next;
+            currentPosition++;
+        }
+        if (current == null || current.next == null) {
+            System.out.println("Invalid position");
+            return;
+        }
+        current.next = current.next.next;
+    }
+
+    // Display the elements of the list
+    void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        LinkedList list = new LinkedList();
+        int choice;
+        do {
+            System.out.println("[1] Insert at beginning");
+            System.out.println("[2] Insert at end");
+            System.out.println("[3] Insert at specified position");
+            System.out.println("[4] Delete from beginning");
+            System.out.println("[5] Delete from end");
+            System.out.println("[6] Delete from specified position");
+            System.out.println("[7] Display elements");
+            System.out.println("[0] Exit");
+            System.out.print("Enter your choice: ");
+            
+            choice = input.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter element to insert at the beginning: ");
+                    int dataBegin = input.nextInt();
+                    list.insertAtBeginning(dataBegin);
+                    break;
+                case 2:
+                    System.out.print("Enter element to insert at the end: ");
+                    int dataEnd = input.nextInt();
+                    list.insertAtEnd(dataEnd);
+                    break;
+                case 3:
+                    System.out.print("Enter element to insert: ");
+                    int dataPosition = input.nextInt();
+                    System.out.print("Enter position to insert at: ");
+                    int position = input.nextInt();
+                    list.insertAtPosition(dataPosition, position);
+                    break;
+                case 4:
+                    list.deleteFromBeginning();
+                    break;
+                case 5:
+                    list.deleteFromEnd();
+                    break;
+                case 6:
+                    System.out.print("Enter position to delete from: ");
+                    int deletePosition = input.nextInt();
+                    list.deleteFromPosition(deletePosition);
+                    break;
+                case 7:
+                    list.display();
+                    break;
+                case 0:
+                    System.out.println("Exiting program.");
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        } while (choice != 0);
+
+        input.close();
+    }
+}
